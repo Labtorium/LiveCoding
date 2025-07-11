@@ -1,0 +1,553 @@
+cps(120/240)
+
+d1 $ n "0 2 4 7" # s "mydevice"
+hush
+d1
+-- $iter 4
+$iter 4 (sound "bd sn cp hc")
+
+d1 $ (# speed "2") $ sound "arpy*4" # speed "1"
+
+d1
+-- $sometimesBy 0.8 (jux (iter 4))
+$jux (iter 8)
+$sound "bd*2"
+
+--d1 $ jux (density 1.25) $ sound "arpy:2 arpy:4 arpy:1 [~ arpy]"
+d1 $ jux (density 1.25) $ sound "arpy arpy"
+
+d1 $ degradeBy 0.25 $ sound "bd*4"
+d1 $ rarely (# crush 4) $ sound "bd*4"
+
+d1 $jux (iter 4) (sound "bd sn cp hc")
+d1 $jux (rev) (sound "bd sn cp hc")
+
+d1 $sometimesBy 0.8 (jux (rev)) (sound "bd bd cp cp")
+
+d1 $ sound "bd*16" # pan (slow 4 square)
+d1 $ sound "bd*16" # pan (slow 4 $square)
+d1 $ sound "bd*16" # pan ("1 0")
+
+d1 $ sound "bd*16" # pan (slowcat [sine, saw, 0, 1])
+
+d1 $ sound "bd*8 sn*8" # speed (scale 1 3 $sine)
+d1 $ sound "bd*8" # speed (scale 1 3 $sine)
+
+d3
+$sound "bass*2"
+#cutoff "150"
+#gain "0.7"
+#resonance "0.2"
+
+d8
+$stack [
+  sound "ifdrums(3, 8, 3)",
+  sound "bd(3, 8, 2)",
+  sound "glitch(7, 8, 2)"
+]
+#n "2"
+#cutoff "350"
+#resonance "0.4"
+
+--x
+d1 $ weave 16 (pan saw)
+    [sound "bd*4",
+     sound "arpy*3",
+     sound "sn:2*2",
+     sound "h(3,8)"
+    ]
+
+--x
+    d1 $ off 0.25 (# crush 4) $ chunk 4 (fast 2) $ every 4 (# vowel "o") $ jux (rev) $ iter 4 $ slow 2
+      $ off 0.25 (# speed "<2 1.5>") $ sound "bd*2 ~ [~ can] sn:2 ~ bd sn:2 ht"
+      # gain 0.9
+      |*| speed 2
+
+
+--o
+d3 $ slow 8 $ (loopAt 8 $ jux rev $ striate' 32 (1/32) $ sound "bev*8")
+# gain 0.8
+|+| pan (slow 8 saw)
+# orbit 2
+-- # lpf (sine * 2000 + 100)
+# cutoff (sine * 2000 + 100)
+-- # lpf (2000 + 100)
+-- # lpq 0.3
+# resonance 0.3
+
+d3 silence
+
+--o
+d3 $ jux rev $ slow 4 $ n (off 0.125 (+12)
+$off 0.25 (+7)
+$slow 2 "f(3,8) a(3,8,2) c*2 e(3,8)") # sound "superzow"
+# legato 2
+# hpf (slow 4 $ scale 200 2000 sine)
+# hpq 0.2
+# room 0.6
+# size 0.4
+|+| n "<0 0 -12 -24>"
+# gain 0.3
+
+--o
+d3 $ weave 16 (pan sine1) [sound "gabba(3,8)",
+sound "gabba(5,8)",
+sound "arpy*4" |+| gain "0.5",
+jux (iter 4. chop 8 . rev) $ sound (samples "arpy*2 kurt" "[1 2]/2")
+|+| gain "0.3"
+|+| speed "[0.5 1]/2"
+|+| accelerate "[-1 2]/2"]
+
+
+--o
+d3 $ (slow 4 $ jux rev $ every 2 (slow 2) $ (striate 32 $ sound (samples "[newnotes*8 newnotes*12 newnotes*8 newnotes]" (slow 5 $ run 16))))
+|+| speed ((+0.5) <$> (slow 8 $ sinewave1))
+|+| vowel "[a o o e i o u]"
+|+| shape "0.4"
+#gain 0.7
+
+d6 silence
+
+--o
+d3 $ stack [slow 2 $ every 4 (density 2) $ jux (iter 8) $ sound (pick <$> "bass3*2 bass3" <*> (slow 3 $ "1 2 3 4 5"))
+|+| speed "2"
+|+| vowel (every 3 rev "a e"),
+brak $ every 3 (slow 2) $ jux (iter 4) $ sound (pick <$> "jvbass*2 jvbass*3" <*> (slow 3 $ "1 2 3 4 5"))
+|+| speed "2"
+|+| shape "0.7"
+|+| vowel (every 3 rev "a e")]
+
+--o
+d3 $ slowspread ($) [rev, (|+| speed "[0.5]"), density 2, (|+| speed "[1,2]")] $  every 3 (|+| vowel "a e") $ every 4 (|+| speed "0.25") $ jux (rev) $ slow 4 $ striate 16 $ sound "pad:3"
+|+| speed "0.5"
+|+| gain "0.8"
+
+
+d3 $ stack [slow 2 $ jux (whenmod 6 4 (density 2)) $ brak $ sound (samples "newnotes newnotes" (slow 8 $ run 9))
+            |+| speed "[1,2 4 3]/4",
+            slow 2 $ (1/32) <~ (rev $ brak $ sound (samples "newnotes newnotes newnotes" (slow 8 $ run 12))
+            |+| speed "[1,2 4 8]/4")]
+
+d1 $ sound (samples "[sd8, jvbass]*8" (slow 8 $ scan 8))
+
+d1
+$ sound "supersaw*8"
+-- #cutoff (scale 150 700 sine1)
+#cutoff "300 1000"
+
+d3 $sound "superpiano*4"
+#vowel "a i u e"
+-- #speed "2.1"
+#gain 0.7
+
+d2 silence
+
+d1 $sound "superstatic:20"
+#room 0.2
+
+d1
+-- $loopAt 1
+$chop 512
+$sound "breaks125"
+
+d1 $ sound "bd sn hh"
+
+d1
+-- $slow 4
+$sound "breaks125"
+#speed 0.25
+
+d3
+$chop 8
+$sound "arpy ~ feel*2 newnotes"
+-- $sound "bd bd"
+
+d1
+-- $chop 8
+$gap 8
+-- $sound "arpy*4"
+$sound "arp"
+
+d1
+$loopAt 16
+-- $chop 32
+$sound "bev"
+
+d1
+$loopAt 256
+$sound "yiruma"
+
+d1
+$chop 8
+$sound "bev"
+
+d1 silence
+
+d3 $
+jux (iter 4) $
+every 4 (chop 16) $
+every 6 (gap 16) $
+stack[
+  sound "bd:3 [sn:1*2] ~ bd:3" |+| gain "1.0",
+  sound "bass ~ bass:3 ~" |+| gain "1.2",
+  sound "[~ cp]*4"|+| gain "0.8" |+| pan rand
+]
+
+d1 $sound "bev"
+
+d1 $ slow 1 $ chop 16 $ sound "breaks125"
+d3 $ slow 2 $ jux(rev) $ chop 16 $ sound "breaks125"
+
+d1 silence
+hush
+
+d3
+$slow 2
+$sound "latibro:0 latibro:1 latibro:2 latibro:2 latibro:4 latibro:5 latibro:3 latibro:3"
+-- #n 6
+
+--o
+d3
+$jux(iter 4)
+-- $slow 2
+-- $sound "latibro:0*2 latibro:1*2 latibro:2*2 latibro:3*2 latibro:4*2 latibro:5*2 latibro:6*2 latibro:7*2"
+$sound "latibro*16"
+#hpf (sine * 4000)
+#hpq 0.6
+#gain 0.9
+#n (irand 8)
+
+d2 silence
+
+d3
+$jux(iter 4)
+-- $slow 2
+-- $sound "latibro:0 latibro:1 latibro:2 latibro:3 latibro:4 latibro:5 latibro:6 latibro:7 latibro:7 latibro:6 latibro:5 latibro:4 latibro:3 latibro:2 latibro:1 latibro:0"
+$sound "latibro*16"
+-- #lpf (sine1 * 1000 + 200)
+#lpf (400)
+#lpq 0.2
+#gain 0.4
+#vowel "i e a u i o i a"
+-- #vowel "i a u o i a i u"
+-- #n (irand 8)
+
+
+d7
+$sound "glitch*8"
+#n 5
+#gain "0.7"
+#cutoff (scale 1000 18000 $slow 4 $sine) #resonance "0.2"
+#vowel "i u a e i o i a"
+-- #pan (scale 0 1 $sine1)
+-- #pan "0"
+hush
+d7 silence
+
+d3
+-- $sometimesBy 0.8 (jux (iter 4))
+-- $sound "808bd ~ [808bd 808bd] ~"
+$ sound "808bd*4"
+#n 1
+#gain "0.5"
+-- #lpf (sine1 * 400)
+#lpf (100)
+#resonance 0.4
+
+
+d2 $ sound "hh"
+
+d1 silence
+hush
+
+d1 $slow 8 $sound "bev"
+# lpf (sine * 2000 + 100)
+#gain 0.4
+
+
+    d3 $ degradeBy 0.7 $ off 0.25 (# (sound "superpiano" # gain 0.5)) $ sometimes (|+| n "-24")
+      $ n (off 0.125 (+12) $ slow 2 $ off 0.125 (+7) (slow "<2 1>" "c*2 e(3,8,2) a(3,8) f*2")) # sound "supermandolin"
+      # legato (slow 4 (scale 1 2 saw))
+      # lpf (scale 2000 3000 sine)
+      # lpq 0.3
+      # pan saw
+
+d2 silence
+
+d3
+$ jux rev $ smash 4 [1,0.5,3,4] $ brak $ sound "bd*3 [bd*4 bd*8]"
+# speed "1 2 3"
+
+d1
+$sound "ifdrums*4"
+#n "0"
+
+hush
+
+d1
+$sound ("drum")
+--   # delay "1"
+-- |+| vowel " o"
+
+--d1 $ sound "bd*4" # gain (every 3 (rev) $ "1 0.8 0.5 0.7")
+
+d1 $ sound "bd*4" # gain (every 3 (rev) ("1 0.8 0.5 0.7"))
+
+d1 $ sound (every 4 (density 4) ("bd*2 [bd [sn sn*2 sn] sn]"))
+
+d1
+$ every 4
+(density 4)
+$ sound "bd*2 [bd [sn sn*2 sn] sn]"
+
+d1 $ sound "bd*2 [bd [sn sn*2 sn] sn]"
+d2 $ sound "bd*2 bd"
+d3 $ sound "hh hh"
+hush
+
+d1
+$sound "bd*4"
+#gain ((rev) $ "1 0.5")
+-- #pan (rand)
+
+d1
+$ sound "casio*8"
+-- #delay "0.1"
+
+d1 $ sound "can:1"
+d1 $ sound "can:1" |+| vowel "o" #gain "2.0"
+
+d1
+-- $slow 2
+$sound "bev"
+
+d1
+-- $slow 4
+$rev
+$sound "bd cp hh ho"
+
+d1 $ slow 32 $ jux (rev) $ striate' 32 (1/16) $ sound "bev"
+d1 $ striate' 32 (1/16) $ sound "bev"
+d1 silence
+d1 $sound "{bd cp bd bd cp, hc ho}"
+d1 $sound "{hc ho, bd cp bd bd cp}"
+d1 $sound "{bd*2, cp*3}"
+d1 $sound "{bd bd, cp hc ho}"
+d1 $sound "{cp hc bass, bd ho}"
+
+d1 $sound "hc*4" #room "0.7" #size "0.0"
+
+d1 $sound "hc" #delay "0.7" #delaytime "0.125" #delayfeedback "0.8"
+d1 $sound "hc*8" #delay "0.7" #delaytime "0.01 0.03" #delayfeedback "0.9"
+
+d1
+-- $every 4 (rev)
+-- $jux (iter 2)
+-- $sometimesBy 0.2 (slow 2)
+$sometimesBy 0.8 (jux (iter 4))
+$sound "bd [hc ho] bd [hc*2 ho]"
+#n (irand 64)
+
+d1 $sound "bd ~ bass [~ cp]"
+
+d1 $sound "bd [hc ho] bd [hc*2 ho]"
+
+d1 $sound "bd [~ cp]/2"
+d1 $sound "bd cp/2"
+d1 $sound "bd [~ cp]*2"
+
+d1 $sound "[bd [bd*2]] [bd]*2"
+d1 $sound "[bd [cp*2]]/2 [bd]*2"
+d1 $sound "[bd [bd*2]/2] [bd]*2"
+d1 $sound "[bd cp]/2"
+
+d1 $ sound "[bd [cp cp]*2]/2 [bd [cp bd]/2]*2"
+d1 $ sound "[bd [cp cp]] [bd [cp bd]/2]*2"
+
+d1 $cat[
+  sound "bd hc*2",
+  sound "cp*2 ho",
+  sound "bass"
+]
+
+d1 $stack[
+  sound "bd hc*2",
+  sound "cp*2 ho",
+  sound "bass"
+]
+
+d1
+$every 4 (rev)
+$sometimesBy 0.2 (slow 2)
+$sometimesBy 0.8 (jux (iter 4))
+$stack [
+  sound "ifdrums(3, 8, 0)",
+  sound "bd(3, 8, 3)",
+  sound "glitch(2, 8)"
+]
+#n (irand 64)
+#pan (rand)
+#cutoff (scale 1000 18000 $slow 4 $sine1) #resonance "0.2"
+#delay "0.3" #delaytime "0.25" #delayfeedback "0.5"
+#gain "1.0"
+
+d1
+-- $sometimesBy 0.2 (slow 2)
+$stack [
+  sound "ifdrums(3, 8, 0)",
+  sound "bd(3, 8, 3)",
+  sound "glitch(2, 8)"
+]
+
+d1
+$jux (iter 4)
+$jux (iter 2)
+$stack[
+  s "bd(7,8,4)" #n "{0, 7, 10, 17, 19}" #speed "1.5" #pan (rand),
+  s "bd(7,8,2)" #n "{0, 7, 10, 17, 19}" #speed "1.0" #pan (rand),
+  s "bd(3,8,7)" #n "{0, 7, 10, 17, 19}" #speed "0.75" #pan (rand),
+  s "bd(3,8,5)" #n "{0, 7, 10, 17, 19}" #speed "0.5" #pan (rand),
+  s "bd(3,8,3)" #n "{0, 7, 10, 17, 19}" #speed "0.25" #pan (rand)
+]
+|+|n "0 7 -7 12 -12"
+#cutoff (scale 2000 18000 $slow 16 $sine1) #resonance "0.4"
+#sustain "0.15 0.05"
+#gain "1.0"
+
+d1 $sound "bd(3,8)" #n "5"
+d2 $sound "cp hh hh hh hh hh hh hh"
+
+d1 silence
+hush
+
+
+cps(120/240)
+
+d1
+-- $fast 2
+$juxBy 1.0 (#speed "[0.5 0.2]*4 [1 -1]")
+$off 0.5 (|+| n "5 1")
+$stack [
+  -- sound "[808(7,12)]/2" #gain "1.2 1.3" #speed "[[0.1, 0.8][0.5, 1.2]]/4"
+  -- whenmod 5 4 (#accelerate "1")
+  -- whenmod 5 4 (#gain "0")
+  sound "[808(7,12)]" #gain "1.1 0.9" #speed "[[0.1, 0.8][0.5, 1.2]]/2"
+  |+| cutoff (slow 5 $scale 1200 12200 $saw1)
+  #resonance "0.2"
+  ,
+  -- sound "[808(7,12)]/2" #gain "1.2 1.3"
+  -- sound "[808(7,12)]/2" #gain "1.2 1.3" #speed "0.1 0.8"
+  -- whenmod 3 2 (#gain "0")
+  jux (rev) $
+  off 0.5 (|+|n "6") $
+  sound "[jazz(7,12)]/2" |+|n "2"
+  #gain "1.0"
+  |+| cutoff (slow 5 $scale 1200 4200 $saw1)
+  #resonance "0.2"
+  --,
+  --sometimesBy 0.8 (jux (iter 4)) $
+  --off 0.5 (|+|n "2") $
+  --sound "[808bd(7,12,2)]/2" #n 1 #gain 1.1
+]
+-- #gain "1.1"
+
+t1 (jumpIn 4) $silence
+
+--o
+d1 $sound "808ht*4"
+--o
+d1 $sound "808lc*4"
+
+d1 $sound "jazz*4"
+#n (irand 8)
+
+--d1 $sound "[808(7,12)]"
+d1 $sound "koy"
+#gain 1.4
+
+d1 $sound "[koy*8]"
+#gain 1.0
+#speed "[[0.5][1.2]]"
+-- #speed "[[0.1,0.8][0.5,1.2]]"
+-- #speed "[[0.1,0.8][0.5,1.2]]/2"
+-- #cutoff (slow 5 $scale 1000 4000 $saw1)
+-- #resonance 0.2
+
+
+d1 silence
+hush
+
+d1 $sound "[bd cp]*4"
+
+d1
+$stack [
+  -- sound "bd bd" #speed "[[0.3, 1.0][2.0, 5.0]]"
+  sound "bd bd" #speed "[[0.3][5.0]]/2"
+  -- sound "cp cp cp cp"
+]
+
+d1
+$stack [
+  -- sound "[808(7,12)]/2" #gain "1.0" #speed "[0.1, 0.8]"
+  sound "[808(7,12)]/2" #gain "1.0" #speed "[0.1, 0.8]"
+  -- sound "[808(7,12)]/2" #gain "0.8"
+]
+
+d7
+$sound "glitch*8"
+#n 5
+#gain "0.7"
+#cutoff (scale 1000 18000 $slow 4 $sine1) #resonance "0.2"
+#vowel "i u a e i o i a"
+-- #pan (scale 0 1 $sine1)
+-- #pan "0"
+
+t7 (xfadeIn 4) < d1
+
+hush
+
+d3 silence
+
+
+d1 $sound "[sd(7,12)]"
+
+
+d3 silence
+
+d1 $sound "koy"
+#gain 1.0
+-- #speed "[[0.5][1.5]]"
+
+d2 $sound "[sd] ~ [sd*2?] ~"
+#gain 0.8
+#n 6
+
+d2 $
+jux (iter 4) $
+--sound "808bd ~ [808bd 808bd] ~"
+sound "808bd*4"
+#n 1
+#gain 1.0
+
+d5 $
+sound "glitch*8"
+#gain 1.0
+#n (irand 32)
+
+
+d6 $
+jux (iter 4) $
+sound "bass*2"
+#gain 1.0
+#cutoff (slow 4 $scale 600 6000 $sine1)
+#resonance 0.2
+
+d7 silence
+
+
+d1 $
+sound "yiruma"
+
+d1 silence
+
+hush

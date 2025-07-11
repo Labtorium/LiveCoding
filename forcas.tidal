@@ -1,0 +1,205 @@
+cps(120/240)
+
+d1 $silence
+
+
+d1 $
+stack [
+  slow 2 $
+  sound "808bd ~ [808bd 808bd] ~ 808bd [~ ~ ~ 808bd] [808bd 808bd] ~"
+  #n 1
+  #gain 1.4
+  ,
+  sound "~ hand ~ hand"
+  #n 6
+  #gain 1.4
+  ,
+  sound "hh*8"
+  #gain 1.1
+  ,
+  sound "~ [~ hh] ~ ~"
+  #n 2
+  ,
+  sound "glitch*8?"
+  #n (irand 32)
+  #gain 1.0
+]
+
+
+
+d1 $
+stack [
+  loopAt 4 $
+  sound "kose"
+  #gain 1.0
+  ,
+  sound "~ hh ~ [hh hh]"
+  #n 22
+  ,
+  jux (rev) $
+  sound "808bd [~ ~ ~ 808bd] [808bd 808bd] ~"
+  #n 4
+  #gain 1.4
+  ,
+  sound "~ hand ~ hand"
+  #gain 1.0
+  #n 0
+  #hpf (1000)
+  #hpq 0.2
+  ,
+  sound "glitch*8?"
+  #n (irand 16)
+  #gain 0.8
+  --,
+  --sound "808bd*4"
+  -- #n 4
+  -- #gain 1.4
+  --,
+  --sound "koy"
+  -- #gain 0.0
+]
+#room 0.3
+
+hush
+
+d1 $
+stack [
+  loopAt 4 $
+  sound "kose"
+  #gain 1.0
+  ,
+  sound "~ hh ~ [hh hh]"
+  #n 22
+  ,
+  sound "~ hand ~ hand"
+  #n 0
+  #gain 1.0
+  #hpf (1000)
+  #hpq 0.2
+  ,
+  jux (rev) $
+  sound "808bd [~ ~ ~ 808bd] [808bd 808bd] ~"
+  #n 4
+  #gain 1.4
+  ,
+  sound "glitch*4?"
+  #n (irand 16)
+  #gain 0.9
+]
+#room 0.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d4 $
+--sound "~ 808bd ~ [~ [808bd 808bd]]"
+sound "808bd*4"
+#n 1
+#gain 1.2
+
+d8 $ jux rev $ slow 4 $ n (off 0.125 (+12)
+$off 0.25 (+7)
+$slow 2 "f(3,8) a(3,8,2) c*2 e(3,8)") # sound "superzow"
+# legato 2
+# hpf (slow 4 $ scale 200 2000 sine)
+# hpq 0.2
+# room 0.3
+# size 0.4
+|+| n "<0 0 -12 -24>"
+# gain 0.3
+
+d4 silence
+
+d1 $sound "koy"
+#gain 1.0
+-- #speed "[[0.5][1.5]]"
+
+hush
+
+d2 $
+--jux (iter 4) $
+sound "808bd ~ [808bd 808bd] ~"
+--sound "808bd*4"
+#n 1
+#gain 1.2
+
+d2 $silence
+
+d5 $
+sound "glitch*8?"
+#gain 0.8
+#n (irand 16)
+
+d5 silence
+
+d8 $
+--sound "~ [~ sn] ~ [[sn sn] [~ sn]]"
+--jux (iter 4) $
+sound "~ hh ~ [hh hh]"
+#n 22
+#gain 0.7
+
+d4 $
+sound "808bd ~ 808bd ~"
+#speed "0.7"
+#n 1
+#gain 1.2
+
+d5 $
+--sound "~ 808bd ~ [~ [808bd 808bd]]"
+--sound "808bd*2"
+jux (iter 4) $
+--sound "808bd ~ [808bd 808bd] ~"
+sound "bd ~ [bd bd] ~"
+#n 3
+#gain 1.2
+
+d5 silence
+
+d7
+-- $loopAt 128
+$sound "yiruma"
+#begin 0.060
+#end 0.075
+#gain 1.0
+
+d8 $
+sound "hh*8"
+
+d2 $
+sound "~ hand ~ hand"
+#gain 0.9
+#n 0
+#hpf (1000)
+#hpq 0.2
+#room 0.0
+
+d1 $
+loopAt 4 $
+sound "kose"
+#gain 1.0
+
+
+
+d1 $
+loopAt 4 $
+sound "kose"
+#begin 0.0
+#end 0.2
+#legato 4
+
+d7 $silence
+
+hush

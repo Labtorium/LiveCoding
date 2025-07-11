@@ -1,0 +1,182 @@
+cps (120/240)
+
+d1
+$stack [
+  s "808bd(5,8)" #n "c d g f"
+]
+#n 1
+-- #sustain "0.6"
+#gain "1.0"
+
+d1
+$sound "808bd*4"
+#n 1
+#gain "1.0"
+
+d1
+$sound "808bd*4"
+#n 1
+-- #n 24
+
+d2
+$sound "glitch*4"
+#n 5
+#sustain "0.2 0.4"
+
+d2
+$sound "glitch*4"
+#n 3
+
+d2
+$sound "ab*4"
+#n (irand 64)
+
+d3 silence
+
+d2
+$s "moog"
+#n "c"
+|-|n "2"
+#sustain "2.0"
+#gain "1.0"
+
+d3 $sound "[bd bd] bd bd bd"
+
+d1
+-- $ (|=| speed "2")
+$ sound "arpy*4"
+|=| speed "1"
+
+d1 $ every 2 (|=| speed "2") $ sound "arpy*4" |=| speed "1"
+
+d1
+$every 2 (# speed "2")
+$sound "arpy*4"
+#speed "1"
+
+d3
+$sound "hh*8"
+#n (irand 7)
+#gain "0.7"
+
+d4
+$sound "hh*8?"
+-- |+| n 2
+#n 2
+#gain "0.6"
+
+d5
+$sound "hh*4?"
+#n 4
+#gain "0.5"
+
+d5
+$sound "hh*8"
+|+| n (irand 64)
+#gain "0.7"
+
+d9
+$sometimesBy 0.4 (jux (iter 4))
+$stack [
+  s "ifdrums(2, 8, 5)" #n (irand 3),
+  s "bass(2, 8, 2)",
+  s "dr55(2, 8, 3)" #n (irand 16),
+  s "glitch(2, 8, 1)" #n (irand 16),
+  sound "bd:0*2" #shape "0.2"
+]
+#gain "0.8"
+
+d9
+$jux (iter 8)
+$sound "[bd [~ ifdrums] [~ bd] cp]"
+#cutoff (scale 1500 18000 $slow 4 $rand)
+#resonance "0.2"
+#n (irand 64) # pan (rand)
+#gain "0.8"
+
+d9
+$sound "dr55*8?"
+#cutoff (scale 1500 18000 $slow 4 $rand)
+#resonance "1.2"
+#n 0
+#gain "0.6"
+
+d6
+$jux (iter 8)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(7, 8, 2)}"
+#gain "0.6"
+#n (irand 64)
+#vowel "a e i u e o a o"
+#cutoff (scale 500 18000 $slow 4 $rand) #resonance "0.2"
+#pan (rand)
+
+d9
+$sometimesBy 0.6 (jux (iter 2))
+$sometimesBy 0.6 (jux (iter 4))
+$slow 4
+$stack[
+  sound "808hc(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.9" #n (irand 12)
+  -- sound "bd(8,32,{0,5})" #n "2" |+|gain "1.4" |+|n "-12"
+]
+#shape "0.8"
+|*|gain "0.4"
+-- #gain "0.0001"
+
+d9
+$jux (iter 16)
+$slow 4
+$stack[
+  sound "jvbass(5,32,{10,12})" #n (irand 32),
+  sound "jvbass(5,32,{0,4})" #n (irand 32),
+  sound "jvbass(5,32,{1,14})" #n (irand 32)
+]
+#speed "<1 1.5 2 0.5 1 0.25>/4"
+#shape "0.2"
+#cutoff (scale 20 2000 $rand) #resonance "0.6"
+#gain "1.0"
+
+d9
+$stack [
+  sound "cp(3, 8, {1, 3, 5, 7})" |+|up "{7 14 21 0 12 24}%8" #pan (rand),
+  sound "dr55(3,8,10)" #n (irand 8),
+  sound "bd(5, 8)",
+  sound "gabba:4*2"
+]
+#shape "0.8"
+#gain "0.5"
+
+d9
+$ sound "hc(2,8,{0,1,2,3,4})" |+| speed "1.0 2.0 1.5 0.5"
+#n (irand 12)
+#gain "1.2"
+
+d9
+$slowcat [
+  sound "gabbaloud",
+  sound (samples "flick*8?" (irand 6)) |+| speed "2.0 1.0 1.5 3.0",
+  sound "bd:4*2",
+  sound "[bd bd ~ bd ~ ~ ~ bd]" |+| speed "0.75 1.0 0.5"
+]
+#cutoff (scale 400 20000 $slow 8 $sine1) #resonance "0.4"
+#gain "1.0"
+#shape "0.7"
+
+d9
+$slow 2
+$sound "ifdrums:0 ifdrums:2 ~ ~ ~ ~ ~ ~"
+#gain "1.5"
+#n "0 2 0 0 0 0 0 0 0"
+#pan (rand)
+
+d9
+$rev
+$ stack [
+  sound "808mc*8?"
+]
+#gain "1.0"
+#shape "0.8"
+#speed "2.0"
+
+d9 silence
+
+hush

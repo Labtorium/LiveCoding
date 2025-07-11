@@ -1,0 +1,54 @@
+cps (120/240)
+
+d1 $ sound "arpy"
+
+d1 $ sound "bass ~ bass ~"
+d2 $ sound "~ sn ~ sn"
+
+
+d1 $ sound "bass(5,8)"
+
+d1 $ sound "sn ~ ~ ~ sn sn ~ ~"
+d1 $ sound "sn ~ [sn sn] ~"
+d2 $ sound "~ sd ~ sd"
+d1 $ sound "sd(5,8)"
+
+
+
+d1 $ sound "bd*4" #gain "1"
+
+d3 $ sound "hh*8" #gain "1"
+
+d2 silence
+
+
+d3 $ sound "~ bass"
+d2 $ sound "[~ bass]*2 [sn cp]" #gain "1.0"
+-- d3 $ sound "[sn cp]"
+d3 $ sound "bd*2" #gain "1.0"
+d4 $ sound "[hh hh]*4"
+d5 $ sound "arpy arpy" #speed "1" #gain "1"
+d6 $ sound "sd*4" #gain "0.9"
+
+d1 silence
+
+hush
+
+
+
+
+
+
+
+
+
+
+d1 $ sound "bd"
+
+d1 $ sound "bass"
+d2 $ sound "[~ bass]*2 [sn cp]"
+d3 $ sound "bd*2" #gain "2 1"
+d4 $ sound "[~ hh] [~ hh]"
+
+
+d1 silence
