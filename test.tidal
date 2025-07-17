@@ -1,5 +1,102 @@
 cps(120/240)
 
+d1 $ slow 8 $ note
+  "c4 d4 e4 c4 d4 e4 \
+  \g4 e4 d4 c4 d4 e4 \
+  \g4 a4 g4 f4 a4 g4 \
+  \c5 c5 b4 a4 g4 f4 e4 \
+  \g4 a4 g4 f4 a4 g4 \
+  \c4 d4 e4 c4 ~ ~"
+  # s "superpiano"
+  # legato 1
+
+  d1 $ slow 2 $ loopAt 4 $ note
+    "[[d3 f3 a3 c4], [g3 b3 d4 f4], [c3 e3 g3 b3], [a2 c3 e3 g3]]"
+    # s "superpiano"
+    # legato 1
+
+
+d1 $ note "[[c4 e4], [g3 b3]]"
+# s "superpiano"
+# legato 1
+
+d1 $ slow 2 $ note
+  "[d3,f3,a3,c4]"
+  # s "superpiano"
+  # legato 1
+
+  d1 $ note "[[c4,e4,g4], [g3,b3,d4], [a3,c4,e4], [f3,a3,c4]]"
+      # s "superpiano"
+      # legato 1
+
+
+      d1 $ fastcat
+        [ note "[c4,e4,g4]"
+        , note "[g3,b3,d4]"
+        , note "[a3,c4,e4]"
+        , note "[f3,a3,c4]" ]
+        # s "superpiano"
+        # legato 1
+
+
+
+        d1 $ stack
+          [ slow 2 $ fastcat
+              [ note "[c4,e4,g4]"
+              , note "[g3,b3,d4]"
+              , note "[a3,c4,e4]"
+              , note "[f3,a3,c4]" ]
+              # s "superpiano"
+              # legato 1
+          , slow 2 $ note "g4 b4 a4 a4"
+              # s "superpiano"
+              # legato 1
+              # gain 0.9
+          ]
+
+          d1 $ stack
+            [ slow 2 $ fastcat
+                [ note "[c4,e4,g4]"
+                , note "[g3,b3,d4]"
+                , note "[a3,c4,e4]"
+                , note "[f3,a3,c4]"
+                , note "[d3,f3,a3]"
+                , note "[g3,b3,d4]"
+                , note "[c4,e4,g4]"
+                , note "[c4,e4,g4]" ]
+                # s "superpiano"
+                # legato 1
+            , slow 2 $ note "g4 b4 a4 a4 f4 g4 e4 d4"
+                # s "superpiano"
+                # legato 1
+                # gain 0.9
+            ]
+
+
+
+hush
+
+
+
+
+d1 $ n "[c4,e4,g4]" # s "superpiano"
+d1 $ n "[a3,c4,e4]" # s "superpiano"
+d1 $ n "[g3,b3,d4,fs4]" # s "superpiano"
+
+d1 $ n "[[c4,e4,g4], [f4,a4,c5], [g4,b4,d5], [c4,e4,g4]]"
+    # s "superpiano"
+
+
+
+d1 $ note "[[c4 e4 g4], [f4 a4 c5], [g4 b4 d5], [c4 e4 g4]]"
+# s "superpiano"
+# legato 1
+
+
+
+
+
+
 d1 $ n "0 2 4 7" # s "mydevice"
 hush
 d1
@@ -32,22 +129,23 @@ d1 $ sound "bd*16" # pan (slowcat [sine, saw, 0, 1])
 
 d1 $ sound "bd*8 sn*8" # speed (scale 1 3 $sine)
 d1 $ sound "bd*8" # speed (scale 1 3 $sine)
+d3 $ silence
 
 d3
-$sound "bass*2"
-#cutoff "150"
-#gain "0.7"
-#resonance "0.2"
+$ sound "bass*2"
+# cutoff "150"
+# gain "1.1"
+# resonance "0.2"
 
 d8
-$stack [
+$ stack [
   sound "ifdrums(3, 8, 3)",
   sound "bd(3, 8, 2)",
   sound "glitch(7, 8, 2)"
 ]
-#n "2"
-#cutoff "350"
-#resonance "0.4"
+# n "2"
+# cutoff "350"
+# resonance "0.4"
 
 --x
 d1 $ weave 16 (pan saw)
@@ -76,11 +174,11 @@ d3 $ slow 8 $ (loopAt 8 $ jux rev $ striate' 32 (1/32) $ sound "bev*8")
 # resonance 0.3
 
 d3 silence
-
+hush
 --o
 d3 $ jux rev $ slow 4 $ n (off 0.125 (+12)
-$off 0.25 (+7)
-$slow 2 "f(3,8) a(3,8,2) c*2 e(3,8)") # sound "superzow"
+$ off 0.25 (+7)
+$ slow 2 "f(3,8) a(3,8,2) c*2 e(3,8)") # sound "superzow"
 # legato 2
 # hpf (slow 4 $ scale 200 2000 sine)
 # hpq 0.2
@@ -123,12 +221,17 @@ d3 $ slowspread ($) [rev, (|+| speed "[0.5]"), density 2, (|+| speed "[1,2]")] $
 |+| gain "0.8"
 
 
-d3 $ stack [slow 2 $ jux (whenmod 6 4 (density 2)) $ brak $ sound (samples "newnotes newnotes" (slow 8 $ run 9))
+d1 $ stack [slow 1 $ jux (whenmod 6 4 (density 2)) $ brak $ sound (samples "newnotes newnotes" (slow 2 $ run 9))
             |+| speed "[1,2 4 3]/4",
-            slow 2 $ (1/32) <~ (rev $ brak $ sound (samples "newnotes newnotes newnotes" (slow 8 $ run 12))
+            slow 1 $ (1/32) <~ (rev $ brak $ sound (samples "newnotes newnotes newnotes" (slow 2 $ run 12))
             |+| speed "[1,2 4 8]/4")]
 
 d1 $ sound (samples "[sd8, jvbass]*8" (slow 8 $ scan 8))
+
+d1 $ sound "newnotes!4"
+# n 2
+# resonance 0.9
+# shape 0.7
 
 d1
 $ sound "supersaw*8"
@@ -140,10 +243,10 @@ d3 $sound "superpiano*4"
 -- #speed "2.1"
 #gain 0.7
 
-d2 silence
+d3 silence
 
-d1 $sound "superstatic:20"
-#room 0.2
+d1 $ sound "superstatic:20"
+# room 0.2
 
 d1
 -- $loopAt 1
