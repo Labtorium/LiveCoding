@@ -1,76 +1,71 @@
 setcps (120/240)
 
-d1
-  $ jux (iter 16)
-  $ s "supersaw(11, 16)"
-  # legato "<0.5 1.5>*8"
---  # note "{c4 e4 f4 g4 b4}%11"
-  |- note "0 12"
-  |+ note "[0, 7, 12]"
 
 d1
-  $ jux (iter 16)
-  $ s "supersaw(11, 16)"
-  # legato "<0.5 1.5>*8"
-  # note "{c4 e4 f4 g4 b4}%11"
-  |- note "0 12"
-  |+ note "[0, 7, 12]"
-  # lpf(range 100 12000 $rand)
-  # resonance "0.2"
-  # delay "0.5" # delaytime "0.25"
-  # delayfeedback "0.7"
+-- $ sound "909 ~ [909 909] ~"
+$ sound "drum*4"
+#gain "1.5"
+
+d2
+$ sound "~ sd ~ sd"
+
+d3
+$ sound "hh*8"
+
+d4
+$ sound "glitch*8"
+# n (irand 5)
+# gain 1.1
+
+d5
+$ sometimesBy 0.8 (jux (iter 4))
+$ sound "jvbass(3,8,2)"
+# gain "1.1"
+
+d6
+$ sound "alphabet*4"
+#gain "0.8"
+#n (irand 64)
+
+d7
+$ sound "glitch*8"
+# n 5
+# gain "1.0"
+# resonance "0.2"
+# vowel "i u e a i o i a"
+
+d8
+$ jux (iter 8)
+$ stack [
+--  sound "bin(5, 8, 3)",
+  sound "newnotes(11, 16, 2)"
+--  sound "crow(3, 8, 5)"
+]
+#n (irand 64)
+#gain "0.8"
+# resonance "0.3"
+#vowel "a e i u e o a o"
+#pan (rand)
+
+d5 $ silence
+
+
+d9
+$ sometimesBy 0.8 (jux (iter 16))
+$ s "supersaw(13, 16)"
+# legato "<0.5 1.5>*8"
+|- note "0 10"
+|+ note "[0, 7, 4]"
+# vowel "i u e a i o i a"
+# gain 0.8
+
+
+d9 $ silence
+
 
 hush
 
 
--- Tempo（ゆったり 85BPM 相当）
-setcps (90/60/4)
-
--- ドラム
-d1 $ stack [
-  sound "bd(3,8) ~ cp*2",          -- 基本ビート
-  sound "hh*4" # pan (range 0.2 0.8 sine) # gain 0.5 -- ハイハットで空間を埋める
-]
-
--- ベース（和音のルート + 少し動き）
-d2 $ n "0 ~ 2 ~ 4 ~ 2" 
-  # s "bass:3" 
-  # legato 1.5 
-  # gain 1.2 
-  # lpf (range 200 500 $ slow 4 saw)
-
--- ジャズコード（左チャンネル寄り）
-d3 $ n (slow 4 $ "0 2 4 7") 
-  # s "superpiano" 
-  # octave 4 
-  # gain 0.8 
-  # release 1.4 
-  # pan 0.3
-  # room 0.5 # size 0.6
-
--- アルトメロディ（右チャンネル寄りで浮遊）
-d4 $ slow 2 $ n "7 9 ~ 11 ~ 12 ~ 14"
-  # s "superpiano" 
-  # octave 5 
-  # gain 0.7 
-  # legato 1.1 
-  # pan 0.7 
-  # delay 0.2 # delaytime 0.35
-  # room 0.6 # size 0.9
-
--- サンプルレイヤー：アルペジオ（リズム感と空気感を補強）
-d5 $ s "[arpy:3 arpy:4 arpy:5]" 
-  # speed (range 0.8 1.1 $ slow 8 sine) 
-  # gain 0.5 
-  # hpf 600 
-  # room 0.4 # size 0.5 
-  # pan (slow 4 sine)
-
--- FX：雰囲気づけにランダムSE的な鳴り（控えめ）
-d6 $ sometimesBy 0.3 rev $ s "glitch:2 glitch:4" 
-  # gain 0.3 
-  # speed 0.7 
-  # delay 0.3 # delaytime 0.5
 
 
 
@@ -82,8 +77,9 @@ d6 $ sometimesBy 0.3 rev $ s "glitch:2 glitch:4"
 
 
 
--- テンポ設定（90BPM）
-setcps (90/60/4)
+
+
+
 
 -- ドラム：スウィング感のあるビート
 -- d1 $ slow 2 $ sound "[bd(3,8)] [~ cp]*2" # gain 1.2
@@ -144,77 +140,75 @@ d6 $ sometimesBy 0.3 (rev) $
      # hpf 500
 
 
-unsolo 3
 
-hush
+
+-- ドラム
+d1 $ stack [
+  sound "bd(3,8) ~ cp*2",          -- 基本ビート
+  sound "hh*4" # pan (range 0.2 0.8 sine) # gain 0.5 -- ハイハットで空間を埋める
+]
+
+-- ベース（和音のルート + 少し動き）
+d2 $ n "0 ~ 2 ~ 4 ~ 2" 
+  # s "bass:3" 
+  # legato 1.5 
+  # gain 1.2 
+  # lpf (range 200 500 $ slow 4 saw)
+
+-- ジャズコード（左チャンネル寄り）
+d3 $ n (slow 4 $ "0 2 4 7") 
+  # s "superpiano" 
+  # octave 4 
+  # gain 0.8 
+  # release 1.4 
+  # pan 0.3
+  # room 0.5 # size 0.6
+
+-- アルトメロディ（右チャンネル寄りで浮遊）
+d4 $ slow 2 $ n "7 9 ~ 11 ~ 12 ~ 14"
+  # s "superpiano" 
+  # octave 5 
+  # gain 0.7 
+  # legato 1.1 
+  # pan 0.7 
+  # delay 0.2 # delaytime 0.35
+  # room 0.6 # size 0.9
+
+-- サンプルレイヤー：アルペジオ（リズム感と空気感を補強）
+d5 $ s "[arpy:3 arpy:4 arpy:5]" 
+  # speed (range 0.8 1.1 $ slow 8 sine) 
+  # gain 0.5 
+  # hpf 600 
+  # room 0.4 # size 0.5 
+  # pan (slow 4 sine)
+
+-- FX：雰囲気づけにランダムSE的な鳴り（控えめ）
+d6 $ sometimesBy 0.3 rev $ s "glitch:2 glitch:4" 
+  # gain 0.3 
+  # speed 0.7 
+  # delay 0.3 # delaytime 0.5
+
 
 d1
-$ sound "glitch"
-# n 9
+  $ jux (iter 16)
+  $ s "supersaw(11, 16)"
+  # legato "<0.5 1.5>*8"
+--  # note "{c4 e4 f4 g4 b4}%11"
+  |- note "0 12"
+  |+ note "[0, 7, 12]"
 
+d1
+  $ jux (iter 16)
+  $ s "supersaw(11, 16)"
+  # legato "<0.5 1.5>*8"
+  # note "{c4 e4 f4 g4 b4}%11"
+  |- note "0 12"
+  |+ note "[0, 7, 12]"
+  # lpf(range 100 12000 $rand)
+  # resonance "0.2"
+  # delay "0.5" # delaytime "0.25"
+  # delayfeedback "0.7"
 
-
-d2
--- $ sometimesBy 0.8 (jux (iter 4))
--- $ sound "909 ~ [909 909] ~"
-$ sound "909*4"
--- $ sound "808bd!4"
-#n 1
-#gain "1.5"
-
-d2
-$ sound "~ sd ~ sd"
-
-d3
-$ sound "hh*8"
-#gain "1.0"
-
-d4
-$ sound "alphabet*4"
-#gain "0.6"
-#n (irand 64)
-
-hush
-d6 silence
-
-d5
-$ sound "glitch*8"
-# n (irand 8)
-# vowel "i u i a i o i a"
-
-d6
--- $ sometimesBy 0.8 (jux (iter 4))
-$ sound "jvbass(3,8,2)"
-#cutoff (range 1000 18000 $ slow 4 $ sine) #resonance "0.2"
-#gain "1.2"
-
-d7
-$ sound "glitch*8"
-# n 5
-# gain "1.1"
--- # cutoff (range 10000 18000 $ slow 4 $ sine) #resonance "0.2"
--- # vowel "i u a e i o i a"
-# vowel "i u e a i o i a"
-
-d8
-$ jux (iter 8)
-$ stack [
-  sound "bin(3, 8, 3)",
-  sound "newnotes(3, 8, 2)",
-  sound "crow(2, 8, 5)"
-]
-#n (irand 64)
-#gain "0.9"
-#cutoff (range 500 18000 $ slow 4 $ rand) #resonance "0.2"
-#vowel "a e i u e o a o"
-#pan (rand)
-
-d9 silence
-
-d1 $ sound "crow*4"
-#n (irand 64)
-
-hush
 
 d9 $ stack [slow 1 $ jux (whenmod 6 4 (density 2)) $ brak $ sound (samples "newnotes newnotes" (slow 2 $ run 9))
             |+| speed "[1,2 4 3]/4",
