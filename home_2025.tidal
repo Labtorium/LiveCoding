@@ -4,7 +4,7 @@ setcps (120/240)
 d1
 -- $ sound "909 ~ [909 909] ~"
 $ sound "drum*4"
-#gain "1.5"
+#gain "1.0"
 
 d2
 $ sound "~ sd ~ sd"
@@ -24,30 +24,30 @@ $ sound "jvbass(3,8,2)"
 
 d6
 $ sound "alphabet*4"
-#gain "0.8"
+#gain "0.7"
 #n (irand 64)
 
 d7
 $ sound "glitch*8"
 # n 5
-# gain "1.0"
+# gain "0.8"
 # resonance "0.2"
 # vowel "i u e a i o i a"
 
 d8
 $ jux (iter 8)
 $ stack [
---  sound "bin(5, 8, 3)",
-  sound "newnotes(11, 16, 2)"
---  sound "crow(3, 8, 5)"
+  sound "bin(5, 8, 3)",
+  sound "newnotes(6, 16, 2)",
+  sound "crow(3, 8, 5)"
 ]
 #n (irand 64)
-#gain "0.8"
+#gain "0.5"
 # resonance "0.3"
 #vowel "a e i u e o a o"
 #pan (rand)
 
-d5 $ silence
+d1 $ silence
 
 
 d9
@@ -57,11 +57,39 @@ $ s "supersaw(13, 16)"
 |- note "0 10"
 |+ note "[0, 7, 4]"
 # vowel "i u e a i o i a"
-# gain 0.8
+# gain 0.3
 
 
-d9 $ silence
 
+
+
+hush
+
+d8 $ silence
+
+d1 $ n "c5*4"
+# legato "0.5"
+# s "mydevice"
+
+d1 $ slow 2
+$ jux (iter 16)
+$ note "c5 d5 e5 ~ c5 d5 e5 ~ g5 e5 d5 c5 d5 e5 d5 ~ "
+-- |+ note "[c5,e5,g5] [g5,b6,d6]"
+-- |+ note "[c5,e5,g5] [g5,c6,e6]"
+# legato "<0.1 2.5>*8"
+# gain "1.1"
+# sound "mydevice"
+
+
+
+
+d1 $ slow 8
+$ note "c4 d4 e4 ~ c4 d4 e4 ~ g4 e4 d4 c4 d4 e4 d4 ~ c4 d4 e4 ~ c4 d4 e4 ~ g4 e4 d4 c4 d4 e4 c4 ~"
+# sound "superpiano"
+
+d2 $ slow 8
+$ note "[c4,e4,g4] [c4,e4,g4] [c4,e4,g4] [g4,b5,d5] [c4,e4,g4] [c4,e4,g4] [c4,e4,g4] [[g4,b5,d5] [c4,e4,g4]]"
+# sound "superpiano"
 
 hush
 
